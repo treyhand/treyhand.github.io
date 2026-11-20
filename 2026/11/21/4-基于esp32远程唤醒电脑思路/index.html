@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>基于esp32远程唤醒电脑思路 | Tyh&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="需求分析：需要在外远程开启内网电脑办公 已有环境：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境 要求准备：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号 操作思路： 一、在需要被唤醒的电脑上设置开启WOL不同主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于esp32远程唤醒电脑思路">
+<meta property="og:url" content="https://tyh.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:site_name" content="Tyh&#39;s Blog">
+<meta property="og:description" content="需求分析：需要在外远程开启内网电脑办公 已有环境：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境 要求准备：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号 操作思路： 一、在需要被唤醒的电脑上设置开启WOL不同主">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-11-20T18:47:19.000Z">
+<meta property="article:modified_time" content="2026-11-20T18:51:52.198Z">
+<meta property="article:author" content="tyh">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Tyh's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tyh&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tyh.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-4-基于esp32远程唤醒电脑思路" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" class="article-date">
+  <time class="dt-published" datetime="2026-11-20T18:47:19.000Z" itemprop="datePublished">2026-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      基于esp32远程唤醒电脑思路
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>需求分析</strong>：需要在外远程开启内网电脑办公</p>
+<p><strong>已有环境</strong>：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境</p>
+<p><strong>要求准备</strong>：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号</p>
+<p><strong>操作思路</strong>：</p>
+<h2 id="一、在需要被唤醒的电脑上设置开启WOL"><a href="#一、在需要被唤醒的电脑上设置开启WOL" class="headerlink" title="一、在需要被唤醒的电脑上设置开启WOL"></a>一、在需要被唤醒的电脑上设置开启WOL</h2><p>不同主板操作都有不同，具体思路是先在开机过程中连续点按【DEL】&#x2F;【DELET】键进入bois设置界面，然后可以询问ai相关bois开启WOL的方法</p>
+<h2 id="二、设置EMQX"><a href="#二、设置EMQX" class="headerlink" title="二、设置EMQX"></a>二、设置EMQX</h2><p>EMQX的作用是作为一个类似中转站的设施，让处于外网的设备能够发送指令给内网设备；具体是手机（外网）-&gt;EMQX（外网）&lt;-esp32（内网，可上网）</p>
+<h2 id="三、设置esp32"><a href="#三、设置esp32" class="headerlink" title="三、设置esp32"></a>三、设置esp32</h2><p>这里可以直接借助agent辅助开发，将你的要求提供给ai，自动执行一切，下面给出一些ai可能会需要的东西，PC为需要被唤醒的目标主机</p>
+<ul>
+<li>PC 网卡名称（类似enp3s0）</li>
+<li>PC MAC</li>
+<li>PC IP</li>
+<li>Wi-Fi（名称与密码，注意最好是2.4G，因为esp32可能不支持5G段网络）</li>
+<li>MQTT Broker</li>
+<li>MQTT 用户名</li>
+<li>MQTT 密码</li>
+</ul>
+<h2 id="四、后续"><a href="#四、后续" class="headerlink" title="四、后续"></a>四、后续</h2><p>在完成远程开机后，有多种方法远程控制电脑，如果需要图形化界面，推荐UU远程（windows、macos），免费。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tyh.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" data-id="cuid041nlohoFtGIu5SUz9bsv" data-title="基于esp32远程唤醒电脑思路" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">妙用WakeMeOnLan</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">November 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/">基于esp32远程唤醒电脑思路</a>
+          </li>
+        
+          <li>
+            <a href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/">妙用WakeMeOnLan</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/15/2-%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">关于win10开启热点后部分应用端口放行规则失败的解决方法</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/15/1-%E5%85%B3%E4%BA%8Ewin10%E7%9A%84wifi%E3%80%81%E7%83%AD%E7%82%B9%E5%BC%80%E5%90%AF%E9%97%AE%E9%A2%98/">关于win10的wifi、热点开启问题</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/14/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 tyh<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

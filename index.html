@@ -73,9 +73,106 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-关于win10开启热点后部分应用端口放行规则失败的解决方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-4-基于esp32远程唤醒电脑思路" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="article-date">
+    <a href="/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" class="article-date">
+  <time class="dt-published" datetime="2026-11-20T18:47:19.000Z" itemprop="datePublished">2026-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/">基于esp32远程唤醒电脑思路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>需求分析</strong>：需要在外远程开启内网电脑办公</p>
+<p><strong>已有环境</strong>：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境</p>
+<p><strong>要求准备</strong>：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号</p>
+<p><strong>操作思路</strong>：</p>
+<h2 id="一、在需要被唤醒的电脑上设置开启WOL"><a href="#一、在需要被唤醒的电脑上设置开启WOL" class="headerlink" title="一、在需要被唤醒的电脑上设置开启WOL"></a>一、在需要被唤醒的电脑上设置开启WOL</h2><p>不同主板操作都有不同，具体思路是先在开机过程中连续点按【DEL】&#x2F;【DELET】键进入bois设置界面，然后可以询问ai相关bois开启WOL的方法</p>
+<h2 id="二、设置EMQX"><a href="#二、设置EMQX" class="headerlink" title="二、设置EMQX"></a>二、设置EMQX</h2><p>EMQX的作用是作为一个类似中转站的设施，让处于外网的设备能够发送指令给内网设备；具体是手机（外网）-&gt;EMQX（外网）&lt;-esp32（内网，可上网）</p>
+<h2 id="三、设置esp32"><a href="#三、设置esp32" class="headerlink" title="三、设置esp32"></a>三、设置esp32</h2><p>这里可以直接借助agent辅助开发，将你的要求提供给ai，自动执行一切，下面给出一些ai可能会需要的东西，PC为需要被唤醒的目标主机</p>
+<ul>
+<li>PC 网卡名称（类似enp3s0）</li>
+<li>PC MAC</li>
+<li>PC IP</li>
+<li>Wi-Fi（名称与密码，注意最好是2.4G，因为esp32可能不支持5G段网络）</li>
+<li>MQTT Broker</li>
+<li>MQTT 用户名</li>
+<li>MQTT 密码</li>
+</ul>
+<h2 id="四、后续"><a href="#四、后续" class="headerlink" title="四、后续"></a>四、后续</h2><p>在完成远程开机后，有多种方法远程控制电脑，如果需要图形化界面，推荐UU远程（windows、macos），免费。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tyh.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" data-id="cuid041nlohoFtGIu5SUz9bsv" data-title="基于esp32远程唤醒电脑思路" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-3-妙用WakeMeOnLan" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/" class="article-date">
+  <time class="dt-published" datetime="2026-11-20T18:03:25.000Z" itemprop="datePublished">2026-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/">妙用WakeMeOnLan</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最近发现wifi路由器输入地址tplogin.cn无法找到界面，但是面对255个编号一个一个试又太浪费时间，于是介绍一个小软件：WakeMeOnLan</p>
+<p><img src="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/3-1.png" alt="WakeMeOnLan 软件界面"></p>
+<p>该软件是笔者在捣鼓WOL发现的，可以搜索网段下(例如掩码255.255.255.0，那么对于ip192.168.1.1其网段应当是192.168.1.x）所有连接的设备ip与MAC地址，可以借助该软件实现对路由器管理界面的ip查找</p>
+<p><img src="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/3-2.png" alt="通过 WakeMeOnLan 查找路由器管理地址"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tyh.github.io/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/" data-id="cuidMnEXXAWlBS_PV7WTkgC8A" data-title="妙用WakeMeOnLan" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2-关于win10开启热点后部分应用端口放行规则失败的解决方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/08/15/2-%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="article-date">
   <time class="dt-published" datetime="2026-08-14T18:16:29.000Z" itemprop="datePublished">2026-08-15</time>
 </a>
     
@@ -87,7 +184,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">关于win10开启热点后部分应用端口放行规则失败的解决方法</a>
+      <a class="p-name article-title" href="/2026/08/15/2-%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">关于win10开启热点后部分应用端口放行规则失败的解决方法</a>
     </h1>
   
 
@@ -96,15 +193,15 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="问题导入："><a href="#问题导入：" class="headerlink" title="问题导入："></a>问题导入：</h2><p>笔者想使用WebCamera软件进行局域网下的数据传输功能，将手机摄像数据传递给电脑显示，改程序使用npm安装(node.js)，笔者这里使用的是电脑开启热点服务，手机连接电脑热点。</p>
-<h2 id="问题发现："><a href="#问题发现：" class="headerlink" title="问题发现："></a>问题发现：</h2><p>在创建好服务后，电脑端能够正常登入服务端口，如图所示，但是手机端则迟迟无法连接，显示超时。在尝试设置入站规则，放行5000端口后，还是无效，但是关闭privite防火墙问题就解决了。但这不是长久之计。<br><img src="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/%E7%94%B5%E8%84%91%E7%AB%AF%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA.png" alt="电脑端正常显示"></p>
+<h2 id="问题发现："><a href="#问题发现：" class="headerlink" title="问题发现："></a>问题发现：</h2><p>在创建好服务后，电脑端能够正常登入服务端口，如图所示，但是手机端则迟迟无法连接，显示超时。在尝试设置入站规则，放行5000端口后，还是无效，但是关闭privite防火墙问题就解决了。但这不是长久之计。<br><img src="/%E7%94%B5%E8%84%91%E7%AB%AF%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA.png" alt="电脑端正常显示"></p>
 <h2 id="问题解决："><a href="#问题解决：" class="headerlink" title="问题解决："></a>问题解决：</h2><p>考虑到改WebCamera是通过npm下载的，因此，可以针对性的对node.js放行，如图所示，此时问题解决了</p>
-<p><img src="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/%E7%82%B9%E5%87%BB%E7%BA%A2%E8%89%B2%E5%9C%88%E5%9C%88%E5%A4%84.png" alt="点击红色圈圈处"></p>
-<p><img src="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/%E6%8C%89%E7%85%A7%E5%9B%BE%E4%B8%AD%E6%89%80%E7%A4%BA%E5%8B%BE%E9%80%89.png" alt="按照图中所示勾选"></p>
+<p><img src="/%E7%82%B9%E5%87%BB%E7%BA%A2%E8%89%B2%E5%9C%88%E5%9C%88%E5%A4%84.png" alt="点击红色圈圈处"></p>
+<p><img src="/%E6%8C%89%E7%85%A7%E5%9B%BE%E4%B8%AD%E6%89%80%E7%A4%BA%E5%8B%BE%E9%80%89.png" alt="按照图中所示勾选"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tyh.github.io/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" data-id="cuidcRQ57NWsdIGsWraiV3tfk" data-title="关于win10开启热点后部分应用端口放行规则失败的解决方法" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://tyh.github.io/2026/08/15/2-%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" data-id="cuidB5ps2NvZnbwA86FNVtLya" data-title="关于win10开启热点后部分应用端口放行规则失败的解决方法" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -228,7 +325,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">November 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li></ul>
     </div>
   </div>
 
@@ -241,7 +338,15 @@
       <ul>
         
           <li>
-            <a href="/2026/08/15/%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">关于win10开启热点后部分应用端口放行规则失败的解决方法</a>
+            <a href="/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/">基于esp32远程唤醒电脑思路</a>
+          </li>
+        
+          <li>
+            <a href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/">妙用WakeMeOnLan</a>
+          </li>
+        
+          <li>
+            <a href="/2026/08/15/2-%E5%85%B3%E4%BA%8Ewin10%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9%E5%90%8E%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8%E7%AB%AF%E5%8F%A3%E6%94%BE%E8%A1%8C%E8%A7%84%E5%88%99%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">关于win10开启热点后部分应用端口放行规则失败的解决方法</a>
           </li>
         
           <li>
