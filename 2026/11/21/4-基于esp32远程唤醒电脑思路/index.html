@@ -9,12 +9,12 @@
   <meta name="description" content="需求分析：需要在外远程开启内网电脑办公 已有环境：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境 要求准备：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号 操作思路： 一、在需要被唤醒的电脑上设置开启WOL不同主">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于esp32远程唤醒电脑思路">
-<meta property="og:url" content="https://tyh.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:url" content="https://treyhand.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/index.html">
 <meta property="og:site_name" content="Tyh&#39;s Blog">
 <meta property="og:description" content="需求分析：需要在外远程开启内网电脑办公 已有环境：目标电脑：H110M-K主板，ubuntu2404操作系统；工作电脑：win10操作系统、vscode+opencode+deepseek-v4.1-flash；ESP-32开发板；2.4G内网网络环境 要求准备：支持WOL的主板、esp32开发板或类似具备wifi连接的开发板、EMQX账号 操作思路： 一、在需要被唤醒的电脑上设置开启WOL不同主">
 <meta property="og:locale">
 <meta property="article:published_time" content="2026-11-20T18:47:19.000Z">
-<meta property="article:modified_time" content="2026-11-20T19:05:01.212Z">
+<meta property="article:modified_time" content="2026-11-21T03:55:58.011Z">
 <meta property="article:author" content="tyh">
 <meta name="twitter:card" content="summary">
   
@@ -63,10 +63,10 @@
         
           <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
         
-        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tyh.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://treyhand.github.io"></form>
       </div>
     </div>
   </div>
@@ -79,6 +79,10 @@
   <time class="dt-published" datetime="2026-11-20T18:47:19.000Z" itemprop="datePublished">2026-11-21</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%B4%A2/">技术探索</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -117,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tyh.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" data-id="cuidk-ASg1XXEqWh4q3QNboCb" data-title="基于esp32远程唤醒电脑思路" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://treyhand.github.io/2026/11/21/4-%E5%9F%BA%E4%BA%8Eesp32%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E7%94%B5%E8%84%91%E6%80%9D%E8%B7%AF/" data-id="cuidMR5xeCNUAF24L8xp6ENoK" data-title="基于esp32远程唤醒电脑思路" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -129,7 +133,7 @@
   
   
     <a href="/2026/11/21/3-%E5%A6%99%E7%94%A8WakeMeOnLan/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">妙用WakeMeOnLan</div>
     </a>
   
@@ -144,6 +148,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%B4%A2/">技术探索</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -153,7 +164,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">November 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">August 2026</a></li></ul>
     </div>
@@ -163,7 +174,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
